@@ -52,6 +52,7 @@
       <a class="nav-link" href="index.html">Home</a>
       <a class="nav-link" href="info.html">Info</a>
       <a class="nav-link" href="hierarchy.html">Hierarchy</a>
+      <a class="nav-link" href="stock.html">Stock Exchange</a>
     </div>
   </nav>
 
@@ -60,40 +61,89 @@
 
     <!-- Layer 1: CEO -->
     <div class="org-layer">
-      <div class="org-card border-primary">
-        <h5>👑 President & CEO</h5>
-        <p>Baby Orfeas</p>
+      <div class="org-card-wrapper" data-tooltip="Visionary leader, expert in pacifier strategy.">
+        <div class="org-card border-primary">
+          <h5>👑 President & CEO</h5>
+          <p>Baby Orfeas</p>
+        </div>
       </div>
     </div>
 
     <!-- Layer 2: Executive Assistant -->
     <div class="org-layer">
-      <div class="org-card border-info">
-        <h5>💼 Executive Assistant</h5>
-        <p>The Mother – Emmy</p>
+      <div class="org-card-wrapper" data-tooltip="Executive in charge of milk logistics, cuddling, and emotional support.">
+        <div class="org-card border-info">
+          <h5>💼 Executive Assistant</h5>
+          <p>The Mother – Emmy</p>
+        </div>
       </div>
     </div>
 
     <!-- Layer 3: COO -->
     <div class="org-layer">
-      <div class="org-card border-success">
-        <h5>📊 Chief Operating Officer</h5>
-        <p>The Father – Giannis</p>
+      <div class="org-card-wrapper" data-tooltip="Oversees nap scheduling, stroller operations, and night shifts.">
+        <div class="org-card border-success">
+          <h5>📊 Chief Operating Officer</h5>
+          <p>The Father – Giannis</p>
+        </div>
       </div>
     </div>
 
     <!-- Layer 4: Godparents -->
     <div class="org-layer">
-      <div class="org-card border-warning">
-        <h5>💰 Chief Finance Officer</h5>
-        <p>Godfather – Ilias</p>
+      <div class="org-card-wrapper" data-tooltip="Controls the budget for gifts, chocolate, and long-term investments in toys.">
+        <div class="org-card border-warning">
+          <h5>💰 Chief Finance Officer</h5>
+          <p>Godfather – Ilias</p>
+        </div>
       </div>
-      <div class="org-card border-warning">
-        <h5>🧑‍💼 HR Director</h5>
-        <p>Godmother – Maria</p>
+      <div class="org-card-wrapper" data-tooltip="Ensures optimal cuddle-to-cry ratio and emotional development protocols.">
+        <div class="org-card border-warning">
+          <h5>🧑‍💼 HR Director</h5>
+          <p>Godmother – Maria</p>
+        </div>
       </div>
     </div>
-  </div>
+
+<div id="tooltip" class="tooltip-popup"></div>
+
+  <script>
+    const tooltip = document.getElementById('tooltip');
+
+    document.querySelectorAll('.org-card-wrapper').forEach(el => {
+      el.addEventListener('mouseenter', e => {
+        const text = el.getAttribute('data-tooltip');
+        tooltip.textContent = text;
+        tooltip.style.display = 'block';
+        const rect = el.getBoundingClientRect();
+        tooltip.style.left = `${rect.left + rect.width / 2}px`;
+        tooltip.style.top = `${rect.top - 10}px`;
+      });
+
+      el.addEventListener('mousemove', e => {
+        tooltip.style.left = `${e.pageX + 10}px`;
+        tooltip.style.top = `${e.pageY - 40}px`;
+      });
+
+      el.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+      });
+
+      // Optional: Touch support
+      el.addEventListener('click', e => {
+        e.stopPropagation();
+        const text = el.getAttribute('data-tooltip');
+        tooltip.textContent = text;
+        tooltip.style.display = 'block';
+        tooltip.style.left = `${e.pageX + 10}px`;
+        tooltip.style.top = `${e.pageY - 40}px`;
+      });
+    });
+
+    document.addEventListener('click', () => {
+      tooltip.style.display = 'none';
+    });
+  </script>
 
 </body>
 </html>
