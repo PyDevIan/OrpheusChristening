@@ -105,7 +105,16 @@
 
   <div class="game-wrapper">
     <div id="gameArea">
+
       <div id="scoreboard">Score: <span id="score">0</span></div>
+      <div id="controls" class="p-3 bg-white shadow-sm rounded" style="position:absolute; top:10px; right:10px;">
+            <label>🎯 Angle: <span id="angleValue"></label>
+            <input type="range" id="angleSlider" min="10" max="80" value="45" class="form-range mb-2">
+
+            <label>💥 Strength: <span id="strengthValue"></span></label>
+            <input type="range" id="strengthSlider" min="5" max="20" value="10" class="form-range">
+      </div>
+
       <img id="spoon" src="assets/static/spoon.png" alt="Flying Spoon">
       <div id="baby">
         <div class="baby-relative">
@@ -116,6 +125,7 @@
       <button id="fireButton">🍽️ Launch Spoon</button>
     </div>
   </div>
+
 
   <script>
     const spoon = document.getElementById("spoon");
@@ -132,9 +142,18 @@
 
       let x = 50;
       let y = 400;
-      let vx = 5 + Math.random() * 3;
-      let vy = -7 - Math.random() * 4;
+      const angleDeg = parseFloat(angleSlider.value);
+      const strength = parseFloat(strengthSlider.value);
+      const angleRad = angleDeg * (Math.PI / 180);
+
+      const randomness = 0.9 + Math.random() * 0.2;
+      let vx = strength * Math.cos(angleRad) * randomness;
+      let vy = -strength * Math.sin(angleRad) * randomness;
+
       let angle = 0;
+      let wind = (Math.random() - 0.5) * 0.3;
+      vx += wind;  // simulate wind drift!
+
 
       const interval = setInterval(() => {
         x += vx;
